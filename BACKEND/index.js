@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const swaggerUI = require('swagger-ui-express');
-//const swaggerDoc = require(FILE_NAME_OF_SWAGGER_DOC);
+//const swaggerDoc = require('./docs/api.documentation.json');
 
 // Middleware
 const app = express();
@@ -23,7 +23,10 @@ mongoose.connect(dbURI)
     });
 
 // ROUTERS:
+const userAuthRoutes = require('./routes/userauth.route');
 
 // ROUTES:
+app.get('/api', (req, res) => {res.status(200).send("Test Route: Server is Running.")});
+app.use('/api/auth', userAuthRoutes);
 
 // SWAGGER UI DOCS ROUTE:
