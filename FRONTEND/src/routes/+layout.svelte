@@ -1,3 +1,14 @@
+<script>
+    import {onMount} from "svelte";
+    
+    const nonAuthRoutes = ['/'];
+
+    onMount(() => {
+        console.log("test");
+        //TODO redirect user if token is null or invalid
+    })
+</script>
+
 <div class="mainContainer">
     <slot/>
 </div>

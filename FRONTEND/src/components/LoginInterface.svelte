@@ -2,7 +2,7 @@
     let email = "";
     let password = "";
     let authenticating = false;
-    let error = false;
+    let errMsg = "";
 
     async function handleLogin() {
         authenticating = true;
@@ -27,14 +27,14 @@
             type="password"
             placeholder="Password"/>
         </label>
-        {#if error}
+        {#if errMsg}
             <p class="error">The information you have entered is incorrect</p>
         {/if}
         <button on:click={handleLogin} type="button" class="submitBtn">
             {#if authenticating}
                 <i class="fa-solid fa-spinner spin"/>
             {:else}
-                Submit
+                Login
             {/if}
         </button>
     </form>
@@ -42,7 +42,8 @@
         <p>Or</p>
         <div>
             <p>Don't have an account?</p>
-            <p id="register">Register</p>
+            <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+            <p on:click={() => {window.location.href="/register"}} on:keydown={() => {}} id="register">Register</p>
         </div>
     </div>
 </div>

@@ -1,18 +1,20 @@
 <script>
     let email = "";
+    let name = "";
     let password = "";
-    let authenticating = false;
-    let error = false;
+    let confirmPassword = "";
+    let registering = false;
+    let errMsg = "";
 
-    async function handleLogin() {
-        authenticating = true;
-        console.log("logging in")
+    async function handleRegister() {
+        registering = true;
+        console.log("registering")
     }
 </script>
 
 <div class="authContainer">
     <form>
-        <h1>Login</h1>
+        <h1>Register</h1>
         <label>
             <p class={email ? "above" : "center"}>Email</p>
             <input 
@@ -21,28 +23,40 @@
             placeholder="Email"/>
         </label>
         <label>
+            <p class={name ? "above" : "center"}>Full Name</p>
+            <input 
+            bind:value={name}
+            type="text" 
+            placeholder="Full Name"/>
+        </label>
+        <label>
             <p class={password ? "above" : "center"}>Password</p>
             <input 
             bind:value={password}
             type="password"
             placeholder="Password"/>
         </label>
-        {#if error}
-            <p class="error">The information you have entered is incorrect</p>
-        {/if}
-        <button on:click={handleLogin} type="button" class="submitBtn">
-            {#if authenticating}
+        <label>
+            <p class={confirmPassword ? "above" : "center"}>Confirm Password</p>
+            <input 
+            bind:value={confirmPassword}
+            type="password"
+            placeholder="Confirm Password"/>
+        </label>
+        <button on:click={handleRegister} type="button" class="submitBtn">
+            {#if registering}
                 <i class="fa-solid fa-spinner spin"/>
             {:else}
-                Submit
+                Register
             {/if}
         </button>
     </form>
     <div class="options">
         <p>Or</p>
         <div>
-            <p>Don't have an account?</p>
-            <p id="register">Register</p>
+            <p>Already have an account?</p>
+            <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+            <p on:click={() => {window.location.href="/"}} on:keydown={() => {}} id="login">Login</p>
         </div>
     </div>
 </div>
@@ -141,12 +155,6 @@
         opacity: 0;
     }
 
-    .error {
-        color: coral;
-        font-size: 0.7rem;
-        text-align: center;
-    }
-
     .options {
         padding: 14px 0px;
         overflow: hidden;
@@ -194,7 +202,7 @@
         cursor: pointer;
     }
 
-    #register {
+    #login {
         color: navy;
         font-weight: bold;
     }
