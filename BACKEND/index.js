@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const swaggerUI = require('swagger-ui-express');
-//const swaggerDoc = require('./docs/api.documentation.json');
+const swaggerDoc = require('./docs/api.documentation.json');
 
 // Middleware
 const app = express();
@@ -30,3 +30,4 @@ app.get('/api', (req, res) => {res.status(200).send("Test Route: Server is Runni
 app.use('/api/auth', userAuthRoutes);
 
 // SWAGGER UI DOCS ROUTE:
+app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
