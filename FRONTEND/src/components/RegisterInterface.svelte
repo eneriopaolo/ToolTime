@@ -1,14 +1,16 @@
 <script>
+    import { registerUser } from "../lib/userauth.fetch";
+
     let email = "";
     let name = "";
     let password = "";
     let confirmPassword = "";
     let registering = false;
-    let errMsg = "";
 
     async function handleRegister() {
         registering = true;
-        console.log("registering")
+        const response = await registerUser(email, name, password);
+        registering = false;
     }
 </script>
 
@@ -43,7 +45,7 @@
             type="password"
             placeholder="Confirm Password"/>
         </label>
-        <button on:click={handleRegister} type="button" class="submitBtn">
+        <button on:click={handleRegister} type="submit" class="submitBtn">
             {#if registering}
                 <i class="fa-solid fa-spinner spin"/>
             {:else}

@@ -1,17 +1,29 @@
 <script>
+    import { loginUser } from "../lib/userauth.fetch";
     let email = "";
     let password = "";
-    let authenticating = false;
+    let loggingIn = false;
     let errMsg = "";
-
     async function handleLogin() {
-        authenticating = true;
-        console.log("logging in")
+        errMsg = "";
+        if (email === "" || password === "") {
+            errMsg = "Please fill all the fields.";
+            loggingIn = false;
+            return;
+        }
+        loggingIn = true;
+        const response = await loginUser(email, password);
+        const resData = await response.json()
+        if (response.status === 201) { 
+            localStorage.setItem("JWT", resData.token);
+            // TODO redirect user to other page after successful login
+        } else errMsg = resData.message;
+        loggingIn = false;
     }
 </script>
 
 <div class="authContainer">
-    <form>
+    <form on:submit|preventDefault={handleLogin}>
         <h1>Login</h1>
         <label>
             <p class={email ? "above" : "center"}>Email</p>
@@ -28,10 +40,10 @@
             placeholder="Password"/>
         </label>
         {#if errMsg}
-            <p class="error">The information you have entered is incorrect</p>
+            <p class="error">{errMsg}</p>
         {/if}
-        <button on:click={handleLogin} type="button" class="submitBtn">
-            {#if authenticating}
+        <button on:click={handleLogin} type="submit" class="submitBtn">
+            {#if loggingIn}
                 <i class="fa-solid fa-spinner spin"/>
             {:else}
                 Login
@@ -143,7 +155,7 @@
     }
 
     .error {
-        color: coral;
+        color: orangered;
         font-size: 0.7rem;
         text-align: center;
     }
