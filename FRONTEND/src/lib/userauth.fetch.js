@@ -20,7 +20,7 @@ async function loginUser(email, password){
     return response
 };
 
-async function registerUser(email, name, password){
+async function registerUser(email, name, municipality, barangay, houseNo, password){
     const myHeaders = {
         "Content-Type": "application/json"
     };
@@ -29,7 +29,12 @@ async function registerUser(email, name, password){
     let reqBody = JSON.stringify({
         "email": email,
         "name": name,
-        "password": password
+        "password": password,
+        "address": {
+            "municipality": municipality,
+            "barangay": barangay,
+            "houseNumber": houseNo
+        }
     });
 
     let reqOptions = {

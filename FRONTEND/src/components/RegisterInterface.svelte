@@ -3,13 +3,16 @@
 
     let email = "";
     let name = "";
+    let municipality = "";
+    let barangay = "";
+    let houseNumber = "";
     let password = "";
     let confirmPassword = "";
     let registering = false;
 
     async function handleRegister() {
         registering = true;
-        const response = await registerUser(email, name, password);
+        const response = await registerUser(email, name, municipality, barangay, houseNumber, password);
         registering = false;
     }
 </script>
@@ -30,6 +33,60 @@
             bind:value={name}
             type="text" 
             placeholder="Full Name"/>
+        </label>
+        <label>
+            <p class={municipality ? "above": "center"}>Municipality</p>
+            <select class={municipality ? "": "empty"}
+            bind:value={municipality}
+            name="municipality">
+                <option value="" disabled selected>Municipality</option>
+                <option value="Alaminos">Alaminos</option>
+                <option value="Bay">Bay</option>
+                <option value="Biñan">Biñan</option>
+                <option value="Cabuyao">Cabuyao</option>
+                <option value="Calamba">Calamba</option>
+                <option value="Calauan">Calauan</option>
+                <option value="Cavinti">Cavinti</option>
+                <option value="Famy">Famy</option>
+                <option value="Kalayaan">Kalayaan</option>
+                <option value="Liliw">Liliw</option>
+                <option value="Los Baños">Los Baños</option>
+                <option value="Luisiana">Luisiana</option>
+                <option value="Lumban">Lumban</option>
+                <option value="Mabitac">Mabitac</option>
+                <option value="Magdalena">Magdalena</option>
+                <option value="Majayay">Majayay</option>
+                <option value="Nagcarlan">Nagcarlan</option>
+                <option value="Paete">Paete</option>
+                <option value="Pagsanjan">Pagsanjan</option>
+                <option value="Pakil">Pakil</option>
+                <option value="Pangil">Pangil</option>
+                <option value="Pila">Pila</option>
+                <option value="Rizal">Rizal</option>
+                <option value="San Pablo">San Pablo</option>
+                <option value="San Pedro">San Pedro</option>
+                <option value="Santa Cruz">Santa Cruz</option>
+                <option value="Santa Maria">Santa Maria</option>
+                <option value="Santa Rosa">Santa Rosa</option>
+                <option value="Siniloan">Siniloan</option>
+                <option value="Victoria">Victoria</option>
+            </select>
+        </label>
+        <label>
+            <p class={barangay ? "above": "center"}>Barangay</p>
+            <select class={barangay ? "": "empty"}
+            bind:value={barangay}
+            name="barangay">
+                <option value="" disabled selected>Barangay</option>
+                <option value="Pulo">Pulo</option>
+            </select>
+        </label>
+        <label>
+            <p class={houseNumber ? "above" : "center"}>House No.</p>
+            <input 
+            bind:value={houseNumber}
+            type="text" 
+            placeholder="House No."/>
         </label>
         <label>
             <p class={password ? "above" : "center"}>Password</p>
@@ -94,7 +151,7 @@
         border-color: blue;
     }
     
-    form input {
+    form input, form select {
         width: 100%;
         border: none;
         background: transparent;
@@ -102,13 +159,23 @@
         padding: 14px;
     }
 
+    form label select option:first-child {
+        display: none;
+    }
+
+    form label select option {
+        color: black;
+        font-weight: bold;
+    }
+
     form input:focus {
         border: none;
         outline: none; 
     }
 
-    form input::placeholder {
+    form input::placeholder, .empty{
         color: #ADD8E6;
+        opacity: .75;
     }
 
     form button {

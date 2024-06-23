@@ -16,6 +16,7 @@ const dbURI = process.env.DB_URI;
 mongoose.connect(dbURI)
     .then((res) => app.listen(port, () => {
         console.log(`Successfully Connected to Database. Server is listening on port ${port}`);
+        console.log(`View API documentation here: http://localhost:${port}/api/docs`);
     }))
     .catch((err) => {
         console.log("Failed to establish connection to the Database.");

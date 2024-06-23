@@ -32,15 +32,20 @@ const userSchema = new Schema ({
         municipality: {
             type: String,
             enum: {
-                values: ['Alaminos']
-                //TODO: List down all Laguna municipals/cities
+                values: ['Alaminos', 'Bay', 'Biñan', 'Cabuyao', 'Calamba', 'Calauan', 'Cavinti', 'Famy',
+                    'Kalayaan', 'Liliw', 'Los Baños', 'Luisiana', 'Lumban', 'Mabitac', 'Magdalena', 'Majayay',
+                    'Nagcarlan', 'Paete', 'Pagsanjan', 'Pakil', 'Pangil', 'Pila', 'Rizal', 'San Pablo',
+                    'San Pedro', 'Santa Cruz', 'Santa Maria', 'Santa Maria', 'Siniloan', 'Victoria'
+                ],
+                message: "Invalid Municipality"
             }
         },
         barangay: {
             type: String,
             enum: {
-                values: ['Butong']
+                values: ['Butong', 'Pulo'],
                 //TODO: List down all barangays in Laguna
+                message: "Invalid Barangay"
             }
         },
         houseNumber: {
@@ -50,7 +55,7 @@ const userSchema = new Schema ({
     userType: {
         type: String,
         enum: {
-            values: ['admin', 'deliverypersonnel', 'customer']
+            values: ['admin', 'courier', 'customer']
         },
         default: 'customer',
         required: true
