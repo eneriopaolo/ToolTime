@@ -9,8 +9,22 @@
     let password = "";
     let confirmPassword = "";
     let registering = false;
+    let errMsg = "";
 
     async function handleRegister() {
+        errMsg = "";
+        if (email === "" || name === "" || password === "" || confirmPassword === "") {
+            errMsg = "Please fill all the required fields.";
+            return
+        }
+        if (password.length < 8) {
+            errMsg = "Password length should be 8 or longer.";
+            return;
+        }
+        if (password !== confirmPassword) {
+            errMsg = "Password and Confirm Password does not match.";
+            return
+        }
         registering = true;
         const response = await registerUser(email, name, municipality, barangay, houseNumber, password);
         registering = false;
@@ -23,16 +37,20 @@
         <label>
             <p class={email ? "above" : "center"}>Email</p>
             <input 
+            required
+            maxlength="320"
             bind:value={email}
             type="email" 
-            placeholder="Email"/>
+            placeholder="Email*"/>
         </label>
         <label>
             <p class={name ? "above" : "center"}>Full Name</p>
             <input 
+            required
+            maxlength="70"
             bind:value={name}
             type="text" 
-            placeholder="Full Name"/>
+            placeholder="Full Name*"/>
         </label>
         <label>
             <p class={municipality ? "above": "center"}>Municipality</p>
@@ -91,17 +109,23 @@
         <label>
             <p class={password ? "above" : "center"}>Password</p>
             <input 
+            required
+            minlength="8"
             bind:value={password}
             type="password"
-            placeholder="Password"/>
+            placeholder="Password*"/>
         </label>
         <label>
             <p class={confirmPassword ? "above" : "center"}>Confirm Password</p>
             <input 
+            required
             bind:value={confirmPassword}
             type="password"
-            placeholder="Confirm Password"/>
+            placeholder="Confirm Password*"/>
         </label>
+        {#if errMsg}
+            <p class="error">{errMsg}</p>
+        {/if}
         <button on:click={handleRegister} type="submit" class="submitBtn">
             {#if registering}
                 <i class="fa-solid fa-spinner spin"/>
@@ -222,6 +246,12 @@
         left: 6px;
         border: 1px solid transparent;
         opacity: 0;
+    }
+
+    .error {
+        color: orangered;
+        font-size: 0.7rem;
+        text-align: center;
     }
 
     .options {
